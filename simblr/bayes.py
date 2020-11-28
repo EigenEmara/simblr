@@ -69,6 +69,8 @@ class BayesLinearRegression(BaseModel):
         self.sN = sN
         self.mN = mN
 
+        return None
+
     def predict_x_star(self, x_star):
         phi_star = self.poly_features.fit_transform(
             np.array([x_star]).reshape(1, -1)).reshape(self.M + 1, 1)
@@ -82,3 +84,7 @@ class BayesLinearRegression(BaseModel):
         pred = np.vectorize(self.predict_x_star)
         mean, marginal_variance, variance = pred(x)
         return mean, marginal_variance, variance
+    
+    @property
+    def theta(self):
+        raise NotImplementedError
