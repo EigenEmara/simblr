@@ -49,8 +49,6 @@ p(y*|X, Y, x*)  = ∫ p(y*|x*, θ) p(θ|X, Y) dθ
 This information can be critical when we use these predictions in a decision-making system, 
 where bad decisions can have significant consequences
 '''
-
-
 class BayesLinearRegression(BaseModel):
     def __init__(self, x_train: np.ndarray, y_train: np.ndarray, M=4):
         self.mN = None
@@ -61,6 +59,7 @@ class BayesLinearRegression(BaseModel):
         super().__init__(x_train, y_train, M=M)
 
     def fit(self):
+        """ Calculates mean and variance for posterior distibution p(θ|X, Y)"""
         m0 = np.zeros((self.M + 1, 1))
         s0 = np.eye(self.M + 1) * self.alpha
         sN = np.linalg.inv(((self.phi.T @ self.phi) * self.sigma ** -2) + np.linalg.inv(s0))
@@ -72,6 +71,27 @@ class BayesLinearRegression(BaseModel):
         return None
 
     def predict_x_star(self, x_star):
+        ''' Given a single x input, calculates the uncertainity of the output y.
+            TODO:   This only works for scalar input x ∈ R, and it should generalize for
+                    vector valued input x ∈ R^D.
+            
+            Parameters
+            ----------
+            x: float
+                input value used for prediction.
+            
+            Returns
+            -------
+            mu: float
+                Mean of the Gaussian p(y|X, Y, x).
+            
+            marg_var: float
+                Marginal variance of the Gaussian p(y|X, Y, x) (excluding data noise variance).
+            
+            var: float
+                Total variance of the Gaussian p(y|X, Y, x) (including data noise variance).
+
+         '''
         phi_star = self.poly_features.fit_transform(
             np.array([x_star]).reshape(1, -1)).reshape(self.M + 1, 1)
         mu = phi_star.T @ self.mN
@@ -81,10 +101,33 @@ class BayesLinearRegression(BaseModel):
         return float(mu), float(marg_var), float(var)
 
     def predict(self, x: np.ndarray):
+        """ Vectorized version of self.predict_x_star() 
+        
+        Parameters
+        ----------
+        x: ndarray
+            Input vector of shape (D, 1)
+        
+        Returns
+        -------
+        mean: ndarray
+            Means of posterior distributions of shape (D, 1)
+        
+        marginal_variance: ndarray
+            Marginal variance of posterior distributions of shape (D, 1)
+        
+        variance: ndarray
+            Variance of posterior distributions of shape (D, 1)
+        """
+        
         pred = np.vectorize(self.predict_x_star)
         mean, marginal_variance, variance = pred(x)
         return mean, marginal_variance, variance
     
     @property
     def theta(self):
+        """ Since Bayes based regression does not yield an "optimum" parameters,
+            as in maximum likelihood estimation or maximum a posteriori, calling theta()
+            is considered useless and raises NotImplementedError.
+         """
         raise NotImplementedError
