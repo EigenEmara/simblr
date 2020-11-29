@@ -35,7 +35,7 @@ class MaxAPosteriori(BaseModel):
     prior_var = 0.25
 
     def __init__(self, x_train: np.ndarray, y_train: np.ndarray, M=4, beta=4.0):
-        self.beta = beta  # noise_var/prior_var
+        self.beta = beta  # noise_var/prior_var (i.e.: Regularization coefficient)
         super().__init__(x_train, y_train, M)
 
     def fit(self):
