@@ -64,7 +64,7 @@ class BaseModel:
         Returns
         -------
         params: ndarray of shape ((n_features * M) + 1, 1)
-            Optimum parameters for a linear regression function (specifically for MLE and MAP models).
+            Optimum parameters for a linear regression model (specifically for MLE and MAP models).
 
             NOTE:   In the case of BayesLinearRegression fit() returns None.
                     because  we do not fit any parameters, 

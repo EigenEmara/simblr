@@ -38,19 +38,23 @@ h = Φ.T @ θ
 It should be noted that maximum likelihood is prone to overfitting,
 and it's basically a least square optimization problem without regression.
 '''
-
-
-# Maximum Likelihood Estimation linear regression model
 class MaxLikelihood(BaseModel):
     def __init__(self, x_train: np.ndarray, y_train: np.ndarray, M=4):
         super().__init__(x_train, y_train, M)
 
-    def fit(self) -> np.ndarray:
+    def fit(self):
+        ''' Calculates optimum MLE parameters
+
+        Returns
+        -------
+        params: ndarray of shape ((n_features * M) + 1, 1)
+            Optimum maximum likelihood estimation parameters vector.
+        '''
         # github.com/mml-book/mml-book.github.io/blob/master/tutorials/tutorial_linear_regression.solution.ipynb
+        # scicomp.stackexchange.com/questions/36342/advantage-of-diagonal-jitter-for-numerical-stability
         kappa = 1e-08
         D = self.phi.shape[1]
 
-        # maximum likelihood estimate
         Pt = self.phi.T @ self.y_train
         PP = self.phi.T @ self.phi + kappa*np.eye(D)
         theta_MLE = scipy.linalg.solve(PP, Pt)

@@ -28,17 +28,22 @@ For, a polynomial feature matrix phi (check likelihood.py documentations):
 
 MAP can be considered as a least square optimization with l2 regularization.
 '''
-
-
 class MaxAPosteriori(BaseModel):
-    noise_var = 1.0
-    prior_var = 0.25
+    noise_var = 1.0     # Variance of noise in observations (model assumption)
+    prior_var = 0.25    # Variance of parameters prior distribution (model assumption)
 
     def __init__(self, x_train: np.ndarray, y_train: np.ndarray, M=4, beta=4.0):
-        self.beta = beta  # noise_var/prior_var (i.e.: Regularization coefficient)
+        self.beta = beta  # noise_var/prior_var (i.e.: l2 regularization coefficient)
         super().__init__(x_train, y_train, M)
 
     def fit(self):
+        ''' Calculates optimum MAP parameters
+
+        Returns
+        -------
+        params: ndarray of shape ((n_features * M) + 1, 1)
+            Optimum maximum a posteriori parameters vector.
+        '''
         D = self.phi.shape[1]
         PP = (self.phi.T @ self.phi) + (self.beta ** 2 * np.eye(D))
         theta_MAP = scipy.linalg.solve(PP, self.phi.T @ self.y_train)
