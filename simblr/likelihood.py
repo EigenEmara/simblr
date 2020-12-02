@@ -36,7 +36,7 @@ h = Φ.T @ θ
 σ^2 = 1/N * ((y - h).T @ (y - h))
 
 It should be noted that maximum likelihood is prone to overfitting,
-and it's basically a least square optimization problem without regression.
+and it's basically a least square optimization problem without regularization.
 '''
 class MaxLikelihood(BaseModel):
     def __init__(self, x_train: np.ndarray, y_train: np.ndarray, M=4):
