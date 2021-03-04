@@ -15,5 +15,5 @@ Produced by `test.py`
 3. Bayes linear regression provides a distribution over functions plotted by dark and light gray confidence intervals.
 
 Please ignore the high variance noise setting in confidence intervals 😃
-![simblr_output](https://user-images.githubusercontent.com/70483607/109917013-49938580-7cbd-11eb-9f80-c4fc3760946d.png)
+![simblr_output](https://user-images.githubusercontent.com/70483607/109927693-43a5a080-7ccd-11eb-8724-08f3ed096673.png)
 
