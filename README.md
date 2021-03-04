@@ -14,5 +14,6 @@ Produced by `test.py`
 2. MAP applies a Gaussian prior to the basis function parameters (similar to L2 regularization).
 3. Bayes linear regression provides a distribution over functions plotted by dark and light gray confidence intervals.
 
+Please ignore the high variance noise setting in confidence intervals 😃
 ![simblr_output](https://user-images.githubusercontent.com/70483607/109917013-49938580-7cbd-11eb-9f80-c4fc3760946d.png)
 
