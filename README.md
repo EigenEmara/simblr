@@ -5,7 +5,7 @@ simblr is a toy library to implement probabilistic linear regression methods in 
 
 The code implements the following linear regression algorithms:
 1. Maximum likelihood estimation.
-2. Maximum a posteriori
+2. Maximum a posteriori.
 3. Bayesian linear regression.
 
 ## Example Output
