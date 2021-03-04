@@ -1,5 +1,6 @@
 # simblr
-A Simple Bayesian Linear Regression Library
+A Simple Bayesian Linear Regression Library.
+
 simblr is a toy library to implement probabilistic linear regression methods in "Mathematics for Machine Learning" book by Marc Peter Deisenroth, A. Aldo Faisal and Cheng Soon Ong.
 
 The code implements the following linear regression algorithms:
