@@ -12,7 +12,7 @@ The code implements the following linear regression algorithms:
 Produced by `test.py`
 1. MLE fits a 5th order polynomial (highly overfitting).
 2. MAP applies a Gaussian prior to the basis function parameters (similar to L2 regularization).
-3. Bayes linear regression provides a distribution over functions plotted by dark and light gray confidence intervals.
+3. Bayes linear regression provides a distribution over functions plotted by dark and light gray credible intervals.
 
 ![simblr_output](https://raw.githubusercontent.com/EigenEmara/simblr/master/example.png)
 
